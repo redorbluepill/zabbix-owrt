@@ -1,0 +1,37 @@
+menu "Core Zabbix configuration"
+	depends on PACKAGE_zabbix3-core
+
+	choice 
+		prompt "SSL library to use"
+		default ZABBIX3_OPENSSL
+		help
+		   Select SSL library to use for Zabbix
+
+		config ZABBIX3_OPENSSL
+		bool "OpenSSL"
+		select PACKAGE_libopenssl
+	
+		config ZABBIX3_GNUTLS
+		bool "GnuTLS"
+		select PACKAGE_libgnutls
+
+		config ZABBIX3_NOTLS
+		bool "No TLS support"
+	endchoice
+
+	config ZABBIX3_CURL
+		bool "cURL support"
+		default n
+		select PACKAGE_libcurl
+
+	config ZABBIX3_XML2
+		bool "libXML2 support"
+		default n
+		select PACKAGE_libxml2
+
+	config ZABBIX3_SNMP
+		bool "SNMP support"
+		default n
+		select PACKAGE_libnetsnmp
+endmenu
+
